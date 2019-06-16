@@ -147,9 +147,10 @@ plot(multiple5,main="Multiple 5")
 
 # Dado que la muestr es pequeña se debe verificar si se distribuye de manera normal
 españa = subset(datos,pais_de_procedencia == "España")$peso
-qqnorm(españa)
+qqnorm(españa, main = "Gráfica Cuantil-Cuantil Normal", xlab = "Cuantiles Teoricos", ylab = "Cuantiles de la muesta")
 qqline(españa)
  
 # Podemos afirmar que los datos se distribuyen de forma normal
 n = length(españa)
 t.test(españa, alternative = "greater", mu = 64, conf.level = 0.99)
+
