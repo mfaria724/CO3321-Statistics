@@ -5,6 +5,7 @@
 
 library(corrplot)
 datos = read.table("Proyecto2A.txt",header=T)
+par(mfrow = c(2,2))
 
 # 1. Realice un analisis descriptivo y exploratorio de los datos. Incluya en este
 # analisis la matriz de correlacion.
@@ -13,40 +14,56 @@ datos = read.table("Proyecto2A.txt",header=T)
 peso = datos$peso
 summary(peso)
 sd(peso)
+boxplot(peso,main="Caja de Pesos",ylab="Pesos")
 
 # Estatura
 estatura = datos$estatura
 summary(estatura)
 sd(estatura)
+boxplot(estatura,main="Caja de Estaturas",ylab="Estaturas")
 
 # Longitud de Pie
 pie = datos$pie
 summary(pie)
 sd(pie)
+boxplot(pie,main="Caja de Longitudes de Pies",ylab="Longitudes de Pies")
 
 # Longitud de Brazo
 lbrazo = datos$lbrazo
 summary(lbrazo)
 sd(lbrazo)
+boxplot(lbrazo,main="Caja de Longitudes de Brazos",ylab="Longitudes de Brazos")
 
 # Ancho de Espalda
 anchoes = datos$anchoes
 summary(anchoes)
 sd(anchoes)
-
-# Diametro del Craneo
-dcraneo = datos$dcraneo
-summary(dcraneo)
-sd(dcraneo)
+boxplot(anchoes,main="Caja de Anchos de Espaldas",ylab="Anchos de Espaldas")
 
 # Longitud entre la rodilla y el tobillo
 lrodtob = datos$lrodtob
 summary(lrodtob)
 sd(lrodtob)
+boxplot(lrodtob,main="Caja de Longitudes entre Rodilla-Tobillo",ylab="Longitudes entre Rodilla-Tobillo")
+
+# Diametro del Craneo
+dcraneo = datos$dcraneo
+summary(dcraneo)
+sd(dcraneo)
+boxplot(dcraneo,main="Caja de Diametros de Craneos",ylab="Diametros de Craneos")
 
 # Paises de procedencia
 pais_de_procedencia = datos$pais_de_procedencia
 summary(pais_de_procedencia)
+
+# Histogramas
+hist(peso,main="Histogramas de Pesos",ylab="Frecuencia",xlab="Pesos")
+hist(estatura,main="Histogramas de Estaturas",ylab="Frecuencia",xlab="Estaturas")
+hist(pie,main="Histogramas de Longitudes de Pies",ylab="Frecuencia",xlab="Longitudes de Pies")
+hist(lbrazo,main="Histogramas de Longitudes de Brazos",ylab="Frecuencia",xlab="Longitudes de Brazos")
+hist(anchoes,main="Histogramas de Anchos de Espalda",ylab="Frecuencia",xlab="Anchos de Espalda")
+hist(lrodtob,main="Histogramas de Longitudes entre Rodilla-Tobillo",ylab="Frecuencia",xlab="Longitudes entre Rodilla-Tobillo")
+hist(dcraneo,main="Caja de Diametros de Craneos",ylab="Frecuencia",xlab="Diametros de Craneos")
 
 # Matriz de Correlacion
 variables_cuant = datos[1:7]
@@ -56,8 +73,6 @@ corrplot(datos.cor)
 # 2. Encuentre el modelo de regresion simple que mejor se ajuste a
 # los datos; realice las pruebas estadisticas que considere conveniente
 # para justificar su respuesta, incluyendo un analisis de residuales.
-
-par(mfrow = c(2,2))
 
 # Peso
 modeloPeso = lm(estatura~peso)
