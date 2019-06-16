@@ -57,4 +57,34 @@ corrplot(datos.cor)
 # los datos; realice las pruebas estadisticas que considere conveniente
 # para justificar su respuesta, incluyendo un analisis de residuales.
 
-# Encuentre el modelo de regresion
+par(mfrow = c(2,2))
+
+# Peso
+modeloPeso = lm(estatura~peso)
+ysummary(modeloPeso)
+plot(modeloPeso)
+
+# Pie
+modeloPie = lm(estatura~pie)
+summary(modeloPie)
+plot(modeloPie)
+
+# Longitud de Brazo
+modeloLbrazo = lm(estatura~lbrazo)
+summary(modeloLbrazo)
+plot(modeloLbrazo)
+
+# Ancho Espalda
+modeloAnchoes = lm(estatura~anchoes)
+summary(modeloAnchoes)
+plot(modeloAnchoes)
+
+# Diametro de Craneo
+modeloDcraneo = lm(estatura~dcraneo)
+summary(modeloDcraneo)
+plot(modeloDcraneo)
+
+# Longitud entre Rodilla y el Tobillo
+modeloLrodtob = lm(estatura~lrodtob)
+summary(modeloLrodtob)
+plot(modeloLrodtob)
