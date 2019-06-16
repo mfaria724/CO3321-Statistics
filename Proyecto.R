@@ -46,7 +46,6 @@ sd(lrodtob)
 # Paises de procedencia
 pais_de_procedencia = datos$pais_de_procedencia
 summary(pais_de_procedencia)
-sd(pais_de_procedencia)
 
 # Matriz de Correlacion
 variables_cuant = datos[1:7]
@@ -61,7 +60,7 @@ par(mfrow = c(2,2))
 
 # Peso
 modeloPeso = lm(estatura~peso)
-ysummary(modeloPeso)
+summary(modeloPeso)
 plot(modeloPeso)
 
 # Pie
