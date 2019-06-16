@@ -2,71 +2,78 @@
 # Autor: David Segura #13-11341
 #        Manuel Faria #15-10463
 #        Juan Oropeza #15-11041
-
+library(corrplot)
 datos = read.table("Proyecto2A.txt",header=T)
 
 # 1. Realice un analisis descriptivo y exploratorio de los datos. Incluya en este
 # analisis la matriz de correlacion.
 
+# Peso
 peso = datos$peso
-
-hist(peso, xlab="Peso", ylab="Frecuencia", main= "Histograma de Peso")
-boxplot(peso,ylab="Peso", main="Boxplot de Peso")
 summary(peso)
-sd(peso)s
+sd(peso)
 
+# Estatura
 estatura = datos$estatura
-
-hist(estatura, xlab="Estatura", ylab="Frecuencia", main= "Histograma de Estatura")
-boxplot(estatura,ylab="Estatura", main="Boxplot de Estatura")
 summary(estatura)
 sd(estatura)
 
+# Longitud de Pie
 pie = datos$pie
-
-hist(pie, xlab="pie", ylab="Frecuencia", main= "Histograma de pie")
-boxplot(pie,ylab="pie", main="Boxplot de pie")
 summary(pie)
 sd(pie)
 
+# Longitud de Brazo
 lbrazo = datos$lbrazo
-
-hist(lbrazo, xlab="lbrazo", ylab="Frecuencia", main= "Histograma de lbrazo")
-boxplot(lbrazo,ylab="lbrazo", main="Boxplot de lbrazo")
 summary(lbrazo)
 sd(lbrazo)
 
+# Ancho de Espalda
 anchoes = datos$anchoes
+summary(anchoes)
+sd(anchoes)
 
-hist(estatura, xlab="Estatura", ylab="Frecuencia", main= "Histograma de Estatura")
-boxplot(estatura,ylab="Estatura", main="Boxplot de Estatura")
-summary(estatura)
-sd(estatura)
+# Diametro del Craneo
+dcraneo = datos$dcraneo
+summary(dcraneo)
+sd(dcraneo)
 
-estatura = datos$estatura
+# Longitud entre la rodilla y el tobillo
+lrodtob = datos$lrodtob
+summary(lrodtob)
+sd(lrodtob)
 
-hist(estatura, xlab="Estatura", ylab="Frecuencia", main= "Histograma de Estatura")
-boxplot(estatura,ylab="Estatura", main="Boxplot de Estatura")
-summary(estatura)
-sd(estatura)
+# Matriz de Correlacion
+variables_cuant = datos[1:7]
+datos.cor = cor(variables_cuant)
+corrplot(datos.cor)
 
-estatura = datos$estatura
+# 2. Encuentre el modelo de regresion simple que mejor se ajuste a
+# los datos; realice las pruebas estadisticas que considere conveniente
+# para justificar su respuesta, incluyendo un analisis de residuales.
 
-hist(estatura, xlab="Estatura", ylab="Frecuencia", main= "Histograma de Estatura")
-boxplot(estatura,ylab="Estatura", main="Boxplot de Estatura")
-summary(estatura)
-sd(estatura)
+# Modelo Estatura - Peso
+modelo_est_peso = lm(estatura ~ peso)
+summary(modelo_est_peso)
 
-estatura = datos$estatura
+# Modelo Estatura - Longitud de Pie
+modelo_est_pie = lm(estatura ~ pie)
+summary(modelo_est_pie)
 
-hist(estatura, xlab="Estatura", ylab="Frecuencia", main= "Histograma de Estatura")
-boxplot(estatura,ylab="Estatura", main="Boxplot de Estatura")
-summary(estatura)
-sd(estatura)
+# Modelo Estatura - Longitud de Brazo
+modelo_est_lbrazo = lm(estatura ~ lbrazo)
+summary(modelo_est_lbrazo)
 
-estatura = datos$estatura
+# Modelo Estatura - Ancho de Espalda
+modelo_est_anchoes = lm(estatura ~ anchoes)
+summary(modelo_est_anchoes)
 
-hist(estatura, xlab="Estatura", ylab="Frecuencia", main= "Histograma de Estatura")
-boxplot(estatura,ylab="Estatura", main="Boxplot de Estatura")
-summary(estatura)
-sd(estatura)
+# Modelo Estatura - Diametro del Craneo
+modelo_est_dcraneo = lm(estatura ~ dcraneo)
+summary(modelo_est_dcraneo)
+
+# Modelo Estatura - Longitud entre la rodilla y el tobillo
+modelo_est_lrodtob = lm(estatura ~ lrodtob)
+summary(modelo_est_lrodtob)
+
+# Mejor estimacion > estatura ~ pie
