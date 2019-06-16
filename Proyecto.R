@@ -56,7 +56,7 @@ boxplot(pais_de_procedencia,ylab="Pais de Procedencia", main="Boxplot de Pais de
 summary(pais_de_procedencia)
 sd(pais_de_procedencia)
 
-par(mfrow = c(1,1))
+#par(mfrow = c(1,1))
 hist(peso, xlab="Peso", ylab="Frecuencia", main= "Histograma de Peso")
 hist(estatura, xlab="Estatura", ylab="Frecuencia", main= "Histograma de Estatura")
 hist(pie, xlab="Pie", ylab="Frecuencia", main= "Histograma de Pie")
@@ -66,4 +66,38 @@ hist(dcraneo, xlab="Diametro de Craneo", ylab="Frecuencia", main= "Histograma de
 hist(lrodtob, xlab="Longitud entre Rodilla y el Tobillo", ylab="Frecuencia", main= "Histograma de Longitud entre Rodilla y el Tobillo")
 hist(pais_de_procedencia, xlab="Pais de Procedencia", ylab="Frecuencia", main= "Histograma de Pais de Procedencia")
 
-# Encuentre el modelo de regresion
+# Encuentre el modelo de regresión simple que mejor se ajuste a los datos; realice las pruebas estadísticas que considere
+# conveniente para justificar su respuesta, incluyendo un análisis de residuales.
+
+par(mfrow = c(2,2))
+
+# Peso
+modeloPeso = lm(estatura~peso)
+ysummary(modeloPeso)
+plot(modeloPeso)
+
+# Pie
+modeloPie = lm(estatura~pie)
+summary(modeloPie)
+plot(modeloPie)
+
+# Longitud de Brazo
+modeloLbrazo = lm(estatura~lbrazo)
+summary(modeloLbrazo)
+plot(modeloLbrazo)
+
+# Ancho Espalda
+modeloAnchoes = lm(estatura~anchoes)
+summary(modeloAnchoes)
+plot(modeloAnchoes)
+
+# Diametro de Craneo
+modeloDcraneo = lm(estatura~dcraneo)
+summary(modeloDcraneo)
+plot(modeloDcraneo)
+
+# Longitud entre Rodilla y el Tobillo
+modeloLrodtob = lm(estatura~lrodtob)
+summary(modeloLrodtob)
+plot(modeloLrodtob)
+
