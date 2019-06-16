@@ -82,6 +82,7 @@ plot(modeloPeso, main = "Estatura ~ Peso")
 # Pie
 modeloPie = lm(estatura~pie)
 summary(modeloPie)
+par(mfrow=c(2,2))
 plot(modeloPie, main = "Estatura ~ Pie")
 
 # Longitud de Brazo
@@ -145,12 +146,78 @@ plot(multiple5,main="Multiple 5")
 # los resultados y concluya.
 
 
-# Dado que la muestr es pequeña se debe verificar si se distribuye de manera normal
+# Dado que la muesta es pequeña se debe verificar si se distribuye de manera normal
 españa = subset(datos,pais_de_procedencia == "España")$peso
 qqnorm(españa, main = "Gráfica Cuantil-Cuantil Normal", xlab = "Cuantiles Teoricos", ylab = "Cuantiles de la muesta")
 qqline(españa)
- 
 # Podemos afirmar que los datos se distribuyen de forma normal
+# Tamaño de la muestra
 n = length(españa)
+
+# Prueba T-Estudent para obtenet estadistico y p-valor
 t.test(españa, alternative = "greater", mu = 64, conf.level = 0.99)
 
+
+# 5. Para el modelo de regresión lineal simple obtenido en el inciso 2, realice 
+# la predicción correspondiente para la estatura de 5 estudiantes que se anexan
+# a la muestra (Est=estudiantes), los datos se presentan en el Cuadro 1. Grafique
+# los intervalos de predicción y de confianza respectivamente. Realice el 
+# análisis respectivo.
+
+# Como el mejor modeloque se ajustó fue el de los pies, usaremos ese para predecir
+# la estura de los estudiantes.
+modeloPie = lm(estatura~pie)
+newPoints = data.frame(pie=c(34, 37, 39, 44, 36))
+
+# Graficamos los datos
+plot(pie, estatura)
+abline(modeloPie)
+
+# Predicción para los nuevos estudiantes
+(predict(modeloPie, newPoints, interval = 'predict'))
+
+# Generamos puntos necesarios para las bandas
+sequence = data.frame(pie = seq(34, 44, 1))
+
+# Intervalo de predicción
+Pie1 = predict(modeloPie, sequence, interval = "prediction")
+lines(sequence$pie, Pie1[,2], lty = 2, col = "red")
+lines(sequence$pie, Pie1[,3], lty = 2, col = "red")
+
+# Intervalo de confianza para el 95%
+Pie2 = predict(modeloPie, sequence, interval = "confidence")
+lines(sequence$pie, Pie2[,2], lty = 2, col = "blue")
+lines(sequence$pie, Pie2[,3], lty = 2, col = "blue")
+
+# 6. ¿Existe suficiente evidencia que permita concluir que la estatura media de los estudiantes 
+# difiere con respecto al país de procedencia? Use el procedimiento de análisis de varianza para 
+# un diseño de un factor. ¿Qué concluiría usted con un nivel de significancia de alpha = 0.03?
+
+# H0: No hay diferencias entre las medias
+# Ha: Hay diferencias entre las medias
+
+# Obtenemos los datos de las estaturas para cada uno de los paises
+estAme = datos$estatura[ pais_de_procedencia == 'América' ]
+estChi = datos$estatura[ pais_de_procedencia == 'China' ]
+estEsp = datos$estatura[ pais_de_procedencia == 'España' ]
+estInd = datos$estatura[ pais_de_procedencia == 'India' ]
+
+dat = c(estAme, estChi, estEsp, estInd)
+
+# Realizamos el calculo de los factores
+fac = c(replicate(length(estAme), "América"), replicate(length(estChi), "China"), 
+        replicate(length(estEsp), "España"), replicate(length(estInd), "India"))
+factr = factor(fac)
+tapply(dat, factr, mean)
+
+# Diagrama de caja del modelo
+boxplot(dat~factr, xlab = "País", ylab = "Estaura en cm.")
+
+# Creamos el modelo
+mod = lm(dat~factr)
+
+# Analisis de Varianza
+anova(mod)
+
+# Verificamos dos a dos
+pairwise.t.test(dat, factr)
