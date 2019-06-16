@@ -135,3 +135,21 @@ multiple5 = lm(estatura~pie + lbrazo + dcraneo - 1)
 summary(multiple5)
 plot(multiple5,main="Multiple 5")
 # Aqui ya todos son significativos con nivel de 0.05 
+
+
+# 4. Estudios previos indican que los estudiantes de doctorado en España
+# muestran un peso promedio de 64 kg, aunque estudios en otros doctorados 
+# suponen que dicho peso es superior al mostrado por este análisis. Con un
+# nivel de confianza que usted cnsidere necesario, realice un código en el
+# software estadístico R que mueste el resultado de dicho análisis. Analice
+# los resultados y concluya.
+
+
+# Dado que la muestr es pequeña se debe verificar si se distribuye de manera normal
+españa = subset(datos,pais_de_procedencia == "España")$peso
+qqnorm(españa)
+qqline(españa)
+ 
+# Podemos afirmar que los datos se distribuyen de forma normal
+n = length(españa)
+t.test(españa, alternative = "greater", mu = 64, conf.level = 0.99)
